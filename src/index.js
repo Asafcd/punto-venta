@@ -1,13 +1,17 @@
+//@ts-nocheck
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Login from './screens/Login.tsx';
+import FormProductos from './screens/FormProductos.tsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+   {/*  <Login /> */}
+    <FormProductos />
   </React.StrictMode>
 );
 
