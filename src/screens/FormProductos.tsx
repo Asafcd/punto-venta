@@ -1,32 +1,54 @@
-import React from "react";
+import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+function FormProductos({ onSubmit }) {
+  const [productName, setProductName] = useState('');
+  const [price, setPrice] = useState('');
 
-function FormProductos() {
-    return (
-      <div className="container">
-       <h3>Administrador de productos</h3>
-       <form>
-  <div className="form-group">
-    <label>Nombre del producto</label>
-    <input type="text" className="form-control" id=""  placeholder="Enter name"/>
-  </div>
-  <div className="form-group">
-    <label>Precio de venta</label>
-    <input type="number" className="form-control" id="" placeholder="Enter salary"/>
-  </div>
-  <div className="form-group">
-    <label>Unidades en el inventario</label>
-    <input type="number" className="form-control" id="" placeholder="Enter salary"/>
-  </div>
-    <br></br>
- { <button type="submit" className="btn btn-primary">Submit</button>}
- 
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-</form>
-      
-      </div>
-    );
-  }
-  
-  export default FormProductos;
+    // Validar los campos del formulario
+
+    // Crear un objeto con los datos del nuevo producto
+    const newProduct = {
+      productName,
+      price: parseFloat(price),
+    };
+
+    // Enviar el nuevo producto al componente padre
+    onSubmit(newProduct);
+
+    // Limpiar los campos del formulario
+    setProductName('');
+    setPrice('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Nombre del producto"
+        value={productName}
+        onChange={(e) => setProductName(e.target.value)}
+        required
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Precio"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        type="number"
+        required
+        fullWidth
+        margin="normal"
+      />
+      <Button type="submit" variant="contained" color="primary" fullWidth>
+        Agregar producto
+      </Button>
+    </form>
+  );
+}
+
+export default FormProductos;
