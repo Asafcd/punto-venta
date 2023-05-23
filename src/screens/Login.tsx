@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -7,13 +7,13 @@ import Container from '@mui/material/Container';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  //const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Implementa la lógica de autenticación utilizando Firebase
     if (email === 'admin@example.com' && password === 'admin123') {
-      history.push('/products'); // Redirige al administrador de productos después del inicio de sesión exitoso
+      //history.push('/products'); // Redirige al administrador de productos después del inicio de sesión exitoso
     } else {
       // Muestra un mensaje de error de inicio de sesión
       alert('Credenciales inválidas');

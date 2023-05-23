@@ -1,19 +1,22 @@
 
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+//import firebase from 'firebase/app';
+//import 'firebase/firestore';
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAaYMD7OiJurs3tEtQWwdXQzBOPwhb0Wwk",
-  authDomain: "webii-3ba34.firebaseapp.com",
-  projectId: "webii-3ba34",
-  storageBucket: "webii-3ba34.appspot.com",
-  messagingSenderId: "177188285320",
-  appId: "1:177188285320:web:9ddecc812f00aee005283d",
-  measurementId: "G-H4WKCYZEWX"
+  apiKey: "AIzaSyBaCaRfDM8NdbAp9B6oKHVhNlG_BPB32Ls",
+  authDomain: "punto-venta-c779b.firebaseapp.com",
+  projectId: "punto-venta-c779b",
+  storageBucket: "punto-venta-c779b.appspot.com",
+  messagingSenderId: "1016598093351",
+  appId: "1:1016598093351:web:d2f07f9d04eef8fa373802"
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+//firebase.initializeApp(firebaseConfig);
 
-export default db;
+//const db = firebase.firestore();
+
+export default app;
+

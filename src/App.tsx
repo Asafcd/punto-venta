@@ -1,12 +1,13 @@
+//@ts-nocheck
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Menu from './components/Menu';
-import PrivateRoute from './components/PrivateRoute';
-import Login from './screens/Login';
-import ProductAdmin from './screens/ProductAdmin';
-import ServiceAdmin from './screens/ServiceAdmin';
-import SaleAdmin from './screens/SaleAdmin';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header.tsx';
+import Menu from './components/Menu.tsx';
+
+import Login from './screens/Login.tsx';
+/* import ProductAdmin from './screens/ProductAdmin.tsx';
+import ServiceAdmin from './screens/ServiceAdmin.tsx';
+import SaleAdmin from './screens/SaleAdmin.tsx'; */
 
 function App() {
   return (
@@ -14,12 +15,12 @@ function App() {
       <div>
         <Header />
         <Menu />
-        <Switch>
+        <Routes>
           <Route path="/login" Component={Login} />
-          <PrivateRoute path="/products" component={ProductAdmin} />
-          <PrivateRoute path="/services" component={ServiceAdmin} />
-          <PrivateRoute path="/sales" component={SaleAdmin} />
-        </Switch>
+          {/* <Route path="/products" component={ProductAdmin} />
+          <Route path="/services" component={ServiceAdmin} />
+          <Route path="/sales" component={SaleAdmin} /> */}
+        </Routes>
       </div>
     </Router>
   );
