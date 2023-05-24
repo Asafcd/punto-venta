@@ -1,5 +1,7 @@
 //@ts-nocheck
 import React,{useState,useEffect} from "react";
+import { NavLink } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -11,38 +13,32 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { deleteProduct, getProducts } from "../services/ProductService.ts";
 import Grid from "@mui/material/Grid";
-import { NavLink } from "react-router-dom";
 import '../App.css'
 
-
-
-
+import { deleteProduct, getProducts } from "../services/ProductService.ts";
 
 function ProductosScreen() {
 
-    const [ products, setProducts ] = useState<QueryDocumentSnapshot<DocumentData>[] | []>([]);  
+  const [ products, setProducts ] = useState<QueryDocumentSnapshot<DocumentData>[] | []>([]);  
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-    useEffect(() => {
-        AllProducts();
-    },[]);
+  useEffect(() => {
+      AllProducts();
+  },[]);
 
-
-    const AllProducts = async () => {
-        console.log("Entrando a allproducts")
-        const products = await getProducts();
-        setProducts(products); 
-        console.log(products)
-    }
-    
-
- 
-
-  /* const handleDelete = (id: string) => {
-    deleteProduct(id)
+  const AllProducts = async () => {
+      const productsData = await getProducts();
+      setProducts(productsData); 
+  }
+  
+  const handleDelete = async (id: string) => {
+    const result = await deleteProduct(id)
+    //console.log(result)
+    result ? setSuccess("Producto eliminado") : setError("Algo salió mal")
     AllProducts(setProducts)
-  } */
+  }
   return (
     <Container>
       <Grid container spacing={2} marginTop={3}>
@@ -58,7 +54,7 @@ function ProductosScreen() {
         </Grid>
         <div className="divCentrar">
         {/* <Button variant="contained" >Create new user </Button> */}
-        <NavLink to={`/FormProductos/`} className="btn btn-primary mx-2">Create new product</NavLink>
+        <NavLink to={`/products/0`} className="btn btn-primary mx-2">Create new product</NavLink>
         </div>
         
         <Grid container marginTop={2}>
@@ -93,12 +89,10 @@ function ProductosScreen() {
                       <TableCell align="center">{price}</TableCell>
                       <TableCell align="center">{stock}</TableCell>
                       <TableCell align="center">
-                        <NavLink
-                          /* to={`/users/${id}`}
-                          className="btn btn-success mx-2" */
-                        >
-                          Edit
-                        </NavLink>
+                      <NavLink 
+                            to={`/products/${id}`} 
+                            className="btn btn-info mx-2"
+                            >Actualizar</NavLink>
                         <button
                           onClick={() => {handleDelete(id)}}
                           className="btn btn-danger mx-2"

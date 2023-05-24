@@ -20,7 +20,7 @@ export const addService = async (service: Service) => {
 export const getServices = async () => {
     try {
         const serviceDocs: QuerySnapshot = await getDocs(servicesCollection)
-        return serviceDocs
+        return serviceDocs.docs
         
     } catch (error) {
         console.error("Error getting services: ", error);

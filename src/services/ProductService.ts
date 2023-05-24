@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot } from "firebase/firestore"
+import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot, DocumentData } from "firebase/firestore"
 import { db } from "../firebase.ts";
 import { getAuth } from 'firebase/auth';
 import { Product } from "../models/ProductInterface.ts";
@@ -17,12 +17,10 @@ export const addProduct = async (product: Product) => {
     }
 };
 
-export const getProducts = async () => {
-    console.log("getproducts funcion")
+export const getProducts: QuerySnapshot<DocumentData> = async () => {
     try {
         const productDocs: QuerySnapshot = await getDocs(productsCollection)
-        console.log(productDocs)
-        return productDocs
+        return productDocs.docs
         
     } catch (error) {
         console.error("Error getting products: ", error);

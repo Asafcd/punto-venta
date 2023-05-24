@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Header from "../components/Header.tsx";
 import Menu from "../components/Menu.tsx";
-import FormProductos from './FormProductos.tsx';
+import FormProducts from './FormProducts.tsx';
 
 function Home(){
 
@@ -13,7 +13,7 @@ function Home(){
         <Header />
         <Menu />
         <Routes>
-          <Route path="/products" Component={FormProductos} />
+          <Route path="/products" Component={FormProducts} />
           {/* <Route path="/services" component={ServiceAdmin} />
           <Route path="/sales" component={SaleAdmin} /> */}
         </Routes>
