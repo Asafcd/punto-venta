@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -9,11 +9,15 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import App from '../App';
+
+
 
  function Login() {
 
-  const handleSubmit = (event) => {
+  const handleData = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -22,6 +26,32 @@ import App from '../App';
     });
   };
 
+ 
+  const [password,setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [alert, setAlert] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Verificar si el campo de correo y contraseña está vacío o invalido
+
+    if (email.trim() === '' || password.trim() === '') {
+      setError('Por favor, ingresa un correo y contraseña');
+      setAlert(true)
+      return;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Por favor, ingresa un correo o contraseña válida.');
+      setAlert(true)
+      return;
+    } 
+    
+  };
+  
+  /* useEffect(() => {
+  
+  }, []);
+ */
   return (
     <Container component="main" maxWidth="sm">
       <Box
@@ -41,6 +71,7 @@ import App from '../App';
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
+            onChange={(e) => setEmail(e.target.value)}
             margin="normal"
             required
             fullWidth
@@ -51,6 +82,7 @@ import App from '../App';
             autoFocus
           />
           <TextField
+            onChange={(e) => setPassword(e.target.value)}
             margin="normal"
             required
             fullWidth
@@ -61,7 +93,6 @@ import App from '../App';
             autoComplete="current-password"
           />
           
-          <NavLink to="/home">
             <Button
               type="submit"
               fullWidth
@@ -70,7 +101,7 @@ import App from '../App';
             >
               Sign In
             </Button>
-          </NavLink>
+          
 
           <Grid container>
             <Grid item xs>
@@ -86,6 +117,13 @@ import App from '../App';
           </Grid>
         </Box>
       </Box>
+      <br></br>
+      {alert===true && <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        <p>{error}</p> — <strong>Por favor corrigelo!</strong>
+      </Alert>}
+      
+      
     </Container>
   );
 }
