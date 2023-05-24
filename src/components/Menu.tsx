@@ -8,13 +8,13 @@ function Menu() {
   return (
     <List component="nav">
       <ListItem button component={NavLink} to="/products">
-        <ListItemText primary="Administrar productos" />
+        <ListItemText primary="Productos" />
       </ListItem>
       <ListItem button component={NavLink} to="/services">
-        <ListItemText primary="Administrar servicios" />
+        <ListItemText primary="Servicios" />
       </ListItem>
       <ListItem button component={NavLink} to="/sales">
-        <ListItemText primary="Administrar ventas" />
+        <ListItemText primary="Ventas" />
       </ListItem>
     </List>
   );
