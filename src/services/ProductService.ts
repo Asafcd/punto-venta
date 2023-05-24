@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot } from "firebase/firestore"
-import { app } from "../firebase.ts";
+import { db } from "../firebase.ts";
 import { getAuth } from 'firebase/auth';
 import { Product } from "../models/ProductInterface.ts";
 
-const auth = getAuth(app);
-const db: Firestore = getFirestore(app)
+/* const auth = getAuth(app);
+const db: Firestore = getFirestore(app) */
 const productsCollection = collection(db, 'products');
 
 export const addProduct = async (product: Product) => {
@@ -18,8 +18,10 @@ export const addProduct = async (product: Product) => {
 };
 
 export const getProducts = async () => {
+    console.log("getproducts funcion")
     try {
         const productDocs: QuerySnapshot = await getDocs(productsCollection)
+        console.log(productDocs)
         return productDocs
         
     } catch (error) {

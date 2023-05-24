@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Container } from '@mui/material';
+import '../App.css'
 
 function FormServicios({ onSubmit }) {
     const [serviceName, setServiceName] = useState('');
@@ -26,6 +28,7 @@ function FormServicios({ onSubmit }) {
     };
 
     return (
+        <Container component="main" maxWidth="sm">
         <form onSubmit={handleSubmit}>
             <TextField
                 label="Nombre del servicio"
@@ -44,10 +47,14 @@ function FormServicios({ onSubmit }) {
                 fullWidth
                 margin="normal"
             />
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <div className="divCentrar">
+            <Button type="submit" variant="contained" color="primary" w-50>
                 Agregar servicio
             </Button>
+            </div>
+           
         </form>
+        </Container>
     );
 }
 
