@@ -56,15 +56,15 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ background: '#A05EAA' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <SavingsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <SavingsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} fontSize="large"  style={{ fill: '#7CF968' }}/>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/products"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -106,6 +106,7 @@ function ResponsiveAppBar() {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
+              
             >
               {pages.map(({name}) => (
                 <MenuItem key={name} onClick={handleCloseNavMenu}>
