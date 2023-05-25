@@ -1,6 +1,6 @@
 //@ts-nocheck
-import React,{useEffect, useState} from 'react';
-import { NavLink } from 'react-router-dom';
+import React,{useReducer, useState, useEffect} from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -11,16 +11,20 @@ import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
+import { initialState, LoginPayload } from '../models/AuthState.ts'
+import { LoginReducer } from '../reducers/LoginReducer.ts';
 import { login } from '../resources/Auth.ts';
 
  function Login() {
+  const navigate = useNavigate()
+  const [state, dispatch] = useReducer(LoginReducer, initialState);
  
   const [password,setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [alert, setAlert] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setAlert(false)
 
@@ -35,17 +39,32 @@ import { login } from '../resources/Auth.ts';
       return;
     } else{
       const result = await login(email, password)
-      console.log(result)
+      if(result.status){
+        const {uid} = result.user
+        const utoken = await result.user.getIdToken()
+        const payload: LoginPayload = {uid, utoken}
+        dispatch({type:"login", payload})
+      }else{ 
+        setError('Usuario no encontrado.');
+        setAlert(true)
+      }
+      
     }
     
   };
+
+  const logout = () => dispatch({type: 'logout' });
+
+  const redir = () => { navigate('/products')}
   
-  /* useEffect(() => {
-  
-  }, []);
- */
+  /* useEffect( () => {
+    setTimeout(logout, 3000);
+  },[] ); */
+
   return (
     <Container component="main" maxWidth="sm">
+      {state.token && redir()}
+      
       <Box
         sx={{
           boxShadow: 3,
@@ -58,8 +77,9 @@ import { login } from '../resources/Auth.ts';
           alignItems: "center",
         }}
       >
+        
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in 
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -91,7 +111,7 @@ import { login } from '../resources/Auth.ts';
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Iniciar sesión
             </Button>
           
 

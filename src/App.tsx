@@ -15,7 +15,9 @@ import SaleAdmin from './screens/SaleAdmin.tsx'; */
 function App() {
   return (
     <Router>
-      <Menu/>
+      <Login/>
+      {/* <Menu/> esto lo podemos habilitar con 'validated &&...'*/}
+      
       <Routes>
           
           <Route path= "/products" element={<ProductosScreen/>} />
