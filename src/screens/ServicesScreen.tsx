@@ -16,28 +16,28 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import '../App.css'
 
-import { deleteProduct, getProducts } from "../services/ProductService.ts";
+import { deleteService, getServices } from "../services/ServiceService.ts";
 
-function ProductosScreen() {
+function ServicesScreen() {
 
-  const [ products, setProducts ] = useState<QueryDocumentSnapshot<DocumentData>[] | []>([]);  
+  const [ services, setServices ] = useState<QueryDocumentSnapshot<DocumentData>[] | []>([]);  
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-      AllProducts();
+      AllServices();
   },[]);
 
-  const AllProducts = async () => {
-      const productsData = await getProducts();
-      setProducts(productsData); 
+  const AllServices = async () => {
+      const servicesData = await getServices();
+      setServices(servicesData); 
   }
   
   const handleDelete = async (id: string) => {
-    const result = await deleteProduct(id)
+    const result = await deleteService(id)
     //console.log(result)
-    result ? setSuccess("Producto eliminado") : setError("Algo salió mal")
-    AllProducts(setProducts)
+    result ? setSuccess("Servicio eliminado") : setError("Algo salió mal")
+    AllServices(setServices)
   }
   return (
     <Container>
@@ -46,7 +46,7 @@ function ProductosScreen() {
           <Grid item lg={3} md={2} sm={1} xs={0}></Grid>
           <Grid item lg={6} md={8} sm={10} xs={12}>
             <Typography variant="h4" gutterBottom align="center">
-              Holi estas en el administrador de productos
+              Holi estas en el administrador de servicios
               <Divider color="black" />
             </Typography>
           </Grid>
@@ -54,7 +54,7 @@ function ProductosScreen() {
         </Grid>
         <div className="divCentrar">
         {/* <Button variant="contained" >Create new user </Button> */}
-        <NavLink to={`/products/0`} className="btn btn-primary mx-2">Create new product</NavLink>
+        <NavLink to={`/services/0`} className="btn btn-primary mx-2">Create new service</NavLink>
         </div>
         
         <Grid container marginTop={2}>
@@ -68,14 +68,14 @@ function ProductosScreen() {
                     <TableCell align="center">Name</TableCell>
                     <TableCell align="center">Costo</TableCell>
                     <TableCell align="center">Precio</TableCell>
-                    <TableCell align="center">Stock</TableCell>
+                    
                     <TableCell align="center">Acciones</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                {products.map((product: QueryDocumentSnapshot<DocumentData>) => {
-                    const { name, cost, price, stock } = product.data();
-                    const { id } = product;
+                {services.map((service: QueryDocumentSnapshot<DocumentData>) => {
+                    const { name, cost, price } = service.data();
+                    const { id } = service;
                     return (
                     <TableRow
                       key={id}
@@ -87,11 +87,11 @@ function ProductosScreen() {
                       </TableCell>
                       <TableCell align="center">{cost}</TableCell>
                       <TableCell align="center">{price}</TableCell>
-                      <TableCell align="center">{stock}</TableCell>
+                      
                       <TableCell align="center">
                         <div className="txt-conteiner">
                         <NavLink 
-                            to={`/products/${id}`} 
+                            to={`/services/${id}`} 
                             className="btn btn-info mx-2 text-white"
 
                             >Editar</NavLink>
@@ -117,4 +117,4 @@ function ProductosScreen() {
   );
 }
 
-export default  ProductosScreen;
+export default  ServicesScreen;
