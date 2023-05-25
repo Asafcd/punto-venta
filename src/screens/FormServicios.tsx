@@ -1,61 +1,88 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { Container } from '@mui/material';
+//@ts-nocheck
+import React, { useEffect, useState } from 'react'
+import { useParams, redirect } from 'react-router-dom';
+import {Alert, Button, Container, Grid, TextField, Typography} from '@mui/material';
 import '../App.css'
 
-function FormServicios({ onSubmit }) {
-    const [serviceName, setServiceName] = useState('');
-    const [price, setPrice] = useState('');
+import { updateService,getService,addService } from '../services/ServiceService.ts';
+import useForm from '../hooks/useForm.ts'
+import {Service} from '../models/ServiceInterface,js'
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+const emptyService : Service = {
+    name : "",
+    cost: 0,
+    price: 0
+}
+function FormServicios() {
+    const { id } = useParams()
 
-        // Validar los campos del formulario
+  const [services, setServices] = useState<Service>(emptyService)
+  const [servicesData, handleChange, setDataState] = useForm(services)
+  const { name, cost, price} = servicesData
 
-        // Crear un objeto con los datos del nuevo servicio
-        const newService = {
-            serviceName,
-            price: parseFloat(price),
-        };
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-        // Enviar el nuevo servicio al componente padre
-        onSubmit(newService);
+  useEffect(() =>{
+    oneService()
+  },[])
 
-        // Limpiar los campos del formulario
-        setServiceName('');
-        setPrice('');
-    };
+  const oneService = async () => {
+    if (id != 0) {
+      const services = await getService(id)
+      setServices(services)
+      setDataState(services)
+    }
 
-    return (
-        <Container component="main" maxWidth="sm">
-        <form onSubmit={handleSubmit}>
-            <TextField
-                label="Nombre del servicio"
-                value={serviceName}
-                onChange={(e) => setServiceName(e.target.value)}
-                required
-                fullWidth
-                margin="normal"
-            />
-            <TextField
-                label="Precio"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                type="number"
-                required
-                fullWidth
-                margin="normal"
-            />
-            <div className="divCentrar">
-            <Button type="submit" variant="contained" color="primary" w-50>
-                Agregar servicio
-            </Button>
-            </div>
-           
-        </form>
-        </Container>
-    );
+  }
+
+  const handleSubmit = async () => {
+   
+
+    if(name.length>0 && price >0 && cost >0){
+        if (id != 0) {
+            const result = await updateService(id, servicesData)
+            result ? setSuccess("Servicio actualizado") : setError("Algo salió mal")
+      
+          } else {
+            const result = await addService(servicesData)
+            result ? setSuccess("Servicio agregado") : setError("Algo salió mal")
+          }
+    } else{
+        setError("Ingresa campos validos")
+    }
+  }
+
+  return (
+    <Container>
+      <Grid container spacing={2} marginTop={3}>
+        <Grid container>
+          <Grid item md={4} sm={3} xs={0}></Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            {success && <Alert severity="success">{success}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
+            {id ==0 && <Typography variant='h4'> Agregar nuevo servicio </Typography>}
+            {id !=0 && <Typography variant='h4'> Actualizar nuevo ervicio </Typography>}
+              
+          </Grid>
+        </Grid>
+        <Grid container marginTop={3}>
+          <Grid item md={4} sm={3} xs={0}></Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField type="text" name="name" value={name} onChange={handleChange} fullWidth={true} label="Name" variant="outlined" required />
+            <br /><br />
+            <TextField type="text" name="cost" value={cost} onChange={handleChange} fullWidth={true} label="Cost" variant="outlined" required/>
+            <br /><br />
+            <TextField type="text" name="price" value={price} onChange={handleChange} fullWidth={true} label="Price" variant="outlined" required/>
+            <br /><br />
+            
+            
+            <button className="btn btn-success mx-2"  onClick={handleSubmit}> Guardar </button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 }
 
 export default FormServicios;

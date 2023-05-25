@@ -43,3 +43,12 @@
   justify-content: center;
  /*  border: 2px blue solid; */
 }
+
+.txt-conteiner{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 2rem;
+  column-gap: 5px;
+  text-align: center;
+}
+

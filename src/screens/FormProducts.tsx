@@ -39,14 +39,19 @@ function FormProducts() {
   }
 
   const handleSubmit = async () => {
-    if (id != 0) {
-      const result = await updateProduct(id, productData)
-      result ? setSuccess("Producto actualizado") : setError("Algo salió mal")
-
-    } else {
-      const result = await addProduct(productData)
-      result ? setSuccess("Producto agregado") : setError("Algo salió mal")
+    if(name.length>0 && price > 0 && cost >0 && stock > 0){
+      if (id != 0) {
+        const result = await updateProduct(id, productData)
+        result ? setSuccess("Producto actualizado") : setError("Algo salió mal")
+  
+      } else {
+        const result = await addProduct(productData)
+        result ? setSuccess("Producto agregado") : setError("Algo salió mal")
+      }
+    }else{
+      setError("Ingresa campos validos")
     }
+    
   }
 
   return (
