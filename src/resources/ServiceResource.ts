@@ -1,11 +1,9 @@
 //@ts-nocheck
-import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot } from "firebase/firestore"
+import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, QuerySnapshot } from "firebase/firestore"
 import { db } from "../firebase.ts";
-import { getAuth } from 'firebase/auth';
-import { Service } from "../models/ServiceInterface.ts";
 
-/* const auth = getAuth(app); */
-/* const db: Firestore = getFirestore(app) */
+import { Service } from "../models/ServiceInterface.js";
+
 const servicesCollection = collection(db, 'services');
 
 export const addService = async (service: Service) => {

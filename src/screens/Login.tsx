@@ -1,9 +1,8 @@
+//@ts-nocheck
 import React,{useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,31 +10,21 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import App from '../App';
 
-
+import { login } from '../resources/Auth.ts';
 
  function Login() {
-
-  const handleData = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
  
   const [password,setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [alert, setAlert] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Verificar si el campo de correo y contraseña está vacío o invalido
+    setAlert(false)
 
+    // Verificar si el campo de correo y contraseña está vacío o invalido
     if (email.trim() === '' || password.trim() === '') {
       setError('Por favor, ingresa un correo y contraseña');
       setAlert(true)
@@ -44,7 +33,10 @@ import App from '../App';
       setError('Por favor, ingresa un correo o contraseña válida.');
       setAlert(true)
       return;
-    } 
+    } else{
+      const result = await login(email, password)
+      console.log(result)
+    }
     
   };
   

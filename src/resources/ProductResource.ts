@@ -1,8 +1,8 @@
 //@ts-nocheck
-import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, Firestore, CollectionReference, QuerySnapshot, DocumentData } from "firebase/firestore"
+import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, QuerySnapshot, DocumentData } from "firebase/firestore"
 import { db } from "../firebase.ts";
 
-import { Product } from "../models/ProductInterface.ts";
+import { Product } from "../models/ProductInterface.js";
 
 /* const auth = getAuth(app);
 const db: Firestore = getFirestore(app) */

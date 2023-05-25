@@ -16,7 +16,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import '../App.css'
 
-import { deleteService, getServices } from "../services/ServiceService.ts";
+import { deleteService, getServices } from "../resources/ServiceResource.ts";
 
 function ServicesScreen() {
 

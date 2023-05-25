@@ -4,9 +4,9 @@ import { useParams, redirect } from 'react-router-dom';
 import {Alert, Button, Container, Grid, TextField, Typography} from '@mui/material';
 import '../App.css'
 
-import { updateService,getService,addService } from '../services/ServiceService.ts';
+import { updateService,getService,addService } from '../resources/ServiceResource.ts';
 import useForm from '../hooks/useForm.ts'
-import {Service} from '../models/ServiceInterface,js'
+import {Service} from '../models/ServiceInterface.ts'
 
 const emptyService : Service = {
     name : "",

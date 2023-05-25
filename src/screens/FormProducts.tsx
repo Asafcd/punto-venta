@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams, redirect } from 'react-router-dom';
 import {Alert, Button, Container, Grid, TextField, Typography} from '@mui/material';
 
-import { updateProduct, getProduct, addProduct } from "../services/ProductService.ts";
+import { updateProduct, getProduct, addProduct } from "../resources/ProductResource.ts";
 import useForm from '../hooks/useForm.ts';
-import { Product } from '../models/ProductInterface.js';
+import { Product } from '../models/ProductInterface.ts';
 
 
 const emptyProduct: Product = {

@@ -16,7 +16,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import '../App.css'
 
-import { deleteProduct, getProducts } from "../services/ProductService.ts";
+import { deleteProduct, getProducts } from "../resources/ProductResource.ts";
 
 function ProductosScreen() {
 
