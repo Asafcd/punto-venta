@@ -1,7 +1,15 @@
+import { createContext } from "react";
+
 export interface AuthState {
     validated: Boolean,
     token: string | null,
-    userId: string,
+    userId: string | null,
+}
+
+export const initialState: AuthState = {
+  validated: false,
+  userId: null,
+  token: null,
 }
 
 export type AuthAction = 
@@ -13,8 +21,4 @@ export interface LoginPayload {
   utoken: string
 }
 
-export const initialState = {
-  validated: false,
-  userId: null,
-  token: null,
-};
+export const UserContext = createContext<AuthState>(initialState);

@@ -29,7 +29,7 @@ const pages = [
     },
     {
         name:'Ventas',
-        to:'/ventas'
+        to:'/sales'
     },
  
 ]

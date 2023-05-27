@@ -1,6 +1,6 @@
 //@ts-nocheck
-import React,{useReducer, useState, useEffect} from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, {useState, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -11,14 +11,14 @@ import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import { initialState, LoginPayload } from '../models/AuthState.ts'
-import { LoginReducer } from '../reducers/LoginReducer.ts';
+import { LoginPayload, UserContext } from '../models/AuthState.ts'
 import { login } from '../resources/Auth.ts';
 
  function Login() {
   const navigate = useNavigate()
-  const [state, dispatch] = useReducer(LoginReducer, initialState);
- 
+  //const [state, dispatch] = useReducer(LoginReducer, initialState);
+  const { state, dispatch } = useContext(UserContext);
+
   const [password,setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -44,6 +44,7 @@ import { login } from '../resources/Auth.ts';
         const utoken = await result.user.getIdToken()
         const payload: LoginPayload = {uid, utoken}
         dispatch({type:"login", payload})
+        navigate("/home")
       }else{ 
         setError('Usuario no encontrado.');
         setAlert(true)
@@ -53,9 +54,13 @@ import { login } from '../resources/Auth.ts';
     
   };
 
-  const logout = () => dispatch({type: 'logout' });
+  //const logout = () => dispatch({type: 'logout' });
 
-  const redir = () => { navigate('/products')}
+  if(state.token){ 
+    console.log(state.token)
+    navigate("/home")
+    
+  }
   
   /* useEffect( () => {
     setTimeout(logout, 3000);
@@ -63,7 +68,6 @@ import { login } from '../resources/Auth.ts';
 
   return (
     <Container component="main" maxWidth="sm">
-      {state.token && redir()}
       
       <Box
         sx={{
