@@ -19,25 +19,28 @@ import SaleAdmin from './screens/SaleAdmin.tsx'; */
 
 function App() {
 
-  const { state } = useContext(UserContext);
 
   return (
-    <BrowserRouter>
-      <UserProvider>
-        <Menu/>
-        {/* {state.token && <p>Bienvenido, {state.uid}!</p>} */}
-        <Routes>
-        <Route path= "/" element={<ProductosScreen/>} />
-            <Route path= "/login" element={<Login/>} />
-            <Route path= "/products" element={<ProductosScreen/>} />
-            <Route path='/products/:id' element={<FormProducts/>} />
-            <Route path="/services" element={<ServicesScreen/>}  />
-            <Route path='/services/:id' element={<FormServicios/>} />
-            <Route path='/sales' element={<SalesTable/>} />
-            <Route path='/sales/0' element={<AddSale/>} />
-        </Routes>
-      </UserProvider>
-    </BrowserRouter>
+    <UserProvider>
+
+      <BrowserRouter>
+      
+          <Login/>
+          <Menu/>
+          
+          <Routes>
+            <Route path= "/home" element={<App/>} />
+              <Route path= "/login" element={<Login/>} />
+              <Route path= "/products" element={<ProductosScreen/>} />
+              <Route path='/products/:id' element={<FormProducts/>} />
+              <Route path="/services" element={<ServicesScreen/>}  />
+              <Route path='/services/:id' element={<FormServicios/>} />
+              <Route path='/sales' element={<SalesTable/>} />
+              <Route path='/sales/0' element={<AddSale/>} />
+          </Routes>
+        
+      </BrowserRouter>
+    </UserProvider>
 
     
   );

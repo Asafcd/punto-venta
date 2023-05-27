@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState, useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -11,14 +11,17 @@ import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import { LoginPayload, UserContext } from '../models/AuthState.ts'
+import { LoginPayload } from '../models/AuthState.ts'
 import { login } from '../resources/Auth.ts';
+//import { useNavigate } from 'react-router-dom';
+import { UserContext, initialState } from '../models/AuthState.ts';
+import { LoginReducer } from '../reducers/LoginReducer.ts';
 
  function Login() {
-  const navigate = useNavigate()
+  
   //const [state, dispatch] = useReducer(LoginReducer, initialState);
   const { state, dispatch } = useContext(UserContext);
-
+  //const navigate = useNavigate()
   const [password,setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -44,7 +47,8 @@ import { login } from '../resources/Auth.ts';
         const utoken = await result.user.getIdToken()
         const payload: LoginPayload = {uid, utoken}
         dispatch({type:"login", payload})
-        navigate("/home")
+        console.log(state)
+        //navigate("/home")
       }else{ 
         setError('Usuario no encontrado.');
         setAlert(true)
@@ -56,11 +60,7 @@ import { login } from '../resources/Auth.ts';
 
   //const logout = () => dispatch({type: 'logout' });
 
-  if(state.token){ 
-    console.log(state.token)
-    navigate("/home")
-    
-  }
+  
   
   /* useEffect( () => {
     setTimeout(logout, 3000);
